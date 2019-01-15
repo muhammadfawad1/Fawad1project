@@ -1,0 +1,119 @@
+#include<iostream>
+#include<xtree>
+using namespace std;
+int linear_Search(int arr[], int size, int ele_S)
+{
+	if (size == -1)
+		return -1;
+	else if (ele_S == arr[size])
+		return size;
+	return linear_Search(arr, size - 1, ele_S);
+}
+int linear_Search_X(int arr[], int ele_S,int st_P,int size)
+{
+	if (st_P >= size)
+		return -1;
+	else if (ele_S == arr[st_P])
+		return st_P;
+	return linear_Search_X(arr, ele_S, st_P + 1,size);
+}
+int binary_search(int arr[], int left_go, int right_go, int ele_S)
+{
+	if (right_go < left_go)
+		return -1;
+	int mid_P = left_go + (right_go - left_go) / 2;
+	if (arr[mid_P] == ele_S)
+		return mid_P;
+	else if (arr[mid_P] < ele_S)
+		return binary_search(arr, mid_P + 1, right_go, ele_S);
+	else if (arr[mid_P] > ele_S)
+		return binary_search(arr, left_go, mid_P - 1, ele_S);
+}
+int fibbonachi_tri_Sum(int n)
+{
+	if (n == 1)
+		return 1;
+	else if (n == 2)
+		return 2;
+	else if (n == 3)
+		return 3;
+	int x = fibbonachi_tri_Sum(n - 1), y = fibbonachi_tri_Sum(n - 2),z = fibbonachi_tri_Sum(n - 3);
+	return x + y + z;
+}
+int mult(int x, int y)
+{
+	if (x == 0 || y == 0)
+		return 0;
+	else if (x == 1)
+		return y;
+	else if (y == 1)
+		return x;
+	return mult(x, y - 1) + x;
+}
+int cal_pow(int a, int n)
+{
+	if (n == 0 || a == 1)
+		return 1;
+	else if (n == 1)
+		return a;
+	else{
+		int x = cal_pow(a, n / 2);
+		if (n % 2 == 0)
+			return x * x;
+		return x * x*a;
+	}
+}
+int tower_of_hnoi(int n)
+{
+	if (n == 1)
+		return 1;
+	return tower_of_hnoi(n - 1) + cal_pow(2, n - 1);
+}
+int remainder(int a, int b)
+{
+	if (a == b||a==0)
+		return 0;
+	else if(b==0)
+	{
+		cout << "\nun_defined\n";
+		return 0;
+	}
+	else if (b == 1)
+		return 0;
+	else if (a > b)
+		return remainder(a - b, b);
+	return a;
+}
+int divion(int a, int b)
+{
+	if (a == b)
+		return 1;
+	else if (b == 0) {
+		cout << "\nun_defined\n";
+		return 0;
+	}
+	else if (a == 0)
+		return 0;
+	else if (b == 1)
+		return a;
+	else if (a >= b)
+	{
+		return divion(a-b, b)+1;
+	}
+}
+int main()
+{
+	
+	int arr[10] = { 1,2,3,4,5,6,7,8,9,10 };
+	int x=sizeof(arr)/ sizeof(int);
+	cout << linear_Search(arr, x, 6) << endl;
+	cout << linear_Search_X(arr, 3, 0, x) << endl;
+	cout << binary_search(arr, 0,x-1 ,7) << endl;
+	cout << fibbonachi_tri_Sum(5) << endl;
+	cout << mult(2, 3) << endl;
+	cout << tower_of_hnoi(5) << endl;
+	cout << remainder(10, 50) << endl;
+	cout << divion(4, 2);
+	system("pause");
+	return 0;
+}
